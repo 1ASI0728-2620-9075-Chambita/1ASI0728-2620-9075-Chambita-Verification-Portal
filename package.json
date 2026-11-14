@@ -1,0 +1,12 @@
+{
+  "name": "chambita-verification-portal",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Public portal to verify Chambita experience certificates on Ethereum Sepolia",
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "start": "npx --yes serve@14.2.4 -l 5500 ."
+  },
+  "license": "UNLICENSED"
+}
