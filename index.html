@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chambita · Verificar certificado</title>
+  <meta name="description" content="Verifica en Ethereum la autenticidad de un certificado de experiencia de Chambita, sin crear una cuenta.">
+  <meta property="og:title" content="Chambita · Verificar certificado">
+  <meta property="og:description" content="Comprueba en la red que un certificado de experiencia de Chambita es auténtico y está vigente.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="topbar__inner">
+        <a class="brand" data-link="landing" href="#">
+          <svg width="32" height="32" viewBox="0 0 120 120" aria-hidden="true"><rect width="120" height="120" rx="28" fill="#FF6B2C"/><polygon points="60,24 91.2,42 91.2,78 60,96 28.8,78 28.8,42" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linejoin="round"/><polyline points="44,61 55.5,72.5 77,50" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="brand__name">chambita</span>
+          <span class="badge" data-i18n="brand.badge">Verificación</span>
+        </a>
+        <div class="language" role="group" data-i18n-label="language.group" aria-label="Idioma">
+          <button type="button" data-language="es" aria-pressed="true">ES</button>
+          <button type="button" data-language="en" aria-pressed="false">EN</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <!-- P01 · Verify -->
+      <section id="verify" class="stack" aria-labelledby="verify-title">
+        <div class="intro">
+          <span class="intro__icon"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l8 4.5v9L12 20l-8-4.5v-9z"/><path d="M8.5 11.5l2.5 2.5 4.5-5"/></svg></span>
+          <h1 id="verify-title" data-i18n="form.title">Verifica un certificado de experiencia</h1>
+          <p data-i18n="form.subtitle">Pega el enlace o el código que te compartió el postulante. No necesitas crear una cuenta.</p>
+        </div>
+        <form id="verify-form" class="card form" novalidate>
+          <label class="field" for="certificate-input">
+            <span data-i18n="form.label">Enlace o código del certificado</span>
+            <input id="certificate-input" name="certificate" type="text" autocomplete="off" spellcheck="false"
+                   aria-describedby="form-error" data-i18n-placeholder="form.placeholder" placeholder="Pega aquí el enlace o el código">
+          </label>
+          <p id="form-error" class="form__error" role="alert" hidden></p>
+          <button id="verify-button" class="button button--primary" type="submit" data-i18n="form.submit">Verificar</button>
+          <span class="form__hint" data-i18n="form.qr">¿Tienes un código QR? Escanéalo con la cámara de tu celular y se abrirá esta página.</span>
+        </form>
+        <div class="benefits">
+          <div class="benefit"><b data-i18n="benefit.network.title">Directo de la red</b><span data-i18n="benefit.network.text">Consultamos el contrato en Ethereum, sin pasar por los servidores de Chambita.</span></div>
+          <div class="benefit"><b data-i18n="benefit.privacy.title">Sin datos personales</b><span data-i18n="benefit.privacy.text">En la red solo hay una huella del certificado y un identificador seudónimo.</span></div>
+          <div class="benefit"><b data-i18n="benefit.availability.title">Siempre disponible</b><span data-i18n="benefit.availability.text">El certificado se puede verificar aunque la plataforma no esté en línea.</span></div>
+        </div>
+      </section>
+
+      <!-- P02 · Result -->
+      <section id="result" class="stack stack--result" aria-live="polite" hidden>
+        <article id="result-card" class="result">
+          <div class="result__header">
+            <span id="result-icon" class="result__icon" aria-hidden="true"></span>
+            <span class="result__heading">
+              <h1 id="result-title" tabindex="-1"></h1>
+              <span id="result-text"></span>
+            </span>
+          </div>
+          <div id="result-body" class="result__body">
+            <div class="result__project">
+              <span class="eyebrow" data-i18n="result.kind">CERTIFICADO DE EXPERIENCIA</span>
+              <b id="result-project" class="result__project-title"></b>
+            </div>
+            <dl class="facts">
+              <div id="fact-category"><dt data-i18n="result.category">Categoría</dt><dd id="value-category"></dd></div>
+              <div id="fact-score"><dt data-i18n="result.score">Calificación</dt><dd id="value-score"></dd></div>
+              <div><dt data-i18n="result.issuedAt">Fecha de emisión</dt><dd id="value-issued"></dd></div>
+              <div><dt data-i18n="result.status">Estado</dt><dd><span id="value-status" class="pill"></span></dd></div>
+            </dl>
+            <p id="result-offline" class="notice" data-i18n="result.offline" hidden></p>
+            <div class="chain">
+              <b data-i18n="result.network">Datos en la red</b>
+              <span class="chain__row"><span class="muted" data-i18n="result.networkName">Red:</span><span>Ethereum Sepolia</span></span>
+              <span class="chain__row"><span class="muted" data-i18n="result.contract">Contrato:</span><span id="value-contract"></span></span>
+              <span class="chain__row"><span class="muted" data-i18n="result.token">Token:</span><span id="value-token"></span></span>
+              <span class="chain__row"><span class="muted" data-i18n="result.fingerprint">Huella:</span><span id="value-hash"></span></span>
+              <a id="etherscan-link" class="link" href="#" target="_blank" rel="noopener"></a>
+            </div>
+          </div>
+        </article>
+        <div class="result__footer">
+          <button id="again-button" type="button" class="button button--outline" data-i18n="result.again">Verificar otro certificado</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <a class="link" data-link="landing" href="#" data-i18n="footer.about">Conoce Chambita</a> · © 2026 Chambita Labs
+    </footer>
+  </div>
+</body>
+</html>
